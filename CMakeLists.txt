@@ -16,6 +16,12 @@ set(RFID_MQTT ${CMAKE_SOURCE_DIR}/src/main.cpp)
 set(RFID_DIR ${CMAKE_SOURCE_DIR}/lib/RFID)
 set(RFID ${RFID_DIR}/bcm2835.h ${RFID_DIR}/MFRC522.h ${RFID_DIR}/MFRC522.cpp)
 
-add_executable(${CMAKE_PROJECT_NAME} ${RFID_MQTT} ${RFID})
+set(RFID_CLASS_DIR ${CMAKE_SOURCE_DIR}/src/rfid_class)
+set(RFID_CLASS ${RFID_CLASS_DIR}/rfid_class.hpp ${RFID_CLASS_DIR}/rfid_class.cpp)
+
+set(SENSOR_INTERFACE_DIR ${CMAKE_SOURCE_DIR}/sensor_interface)
+set(SENSOR_INTERFACE ${SENSOR_INTERFACE_DIR}/sensor_interface.hpp)
+
+add_executable(${CMAKE_PROJECT_NAME} ${RFID_MQTT} ${RFID} ${SENSOR_INTERFACE} ${RFID_CLASS})
 
 target_link_libraries(${CMAKE_PROJECT_NAME} bcm2835)

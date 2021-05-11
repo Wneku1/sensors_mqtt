@@ -13,15 +13,20 @@ set(CMAKE_CXX_FLAGS " ")
 
 set(RFID_MQTT ${CMAKE_SOURCE_DIR}/src/main.cpp)
 
+set(SHARED_MODULES_DIR ${CMAKE_SOURCE_DIR}/shared_module)
+
 set(RFID_DIR ${CMAKE_SOURCE_DIR}/lib/RFID)
 set(RFID ${RFID_DIR}/bcm2835.h ${RFID_DIR}/MFRC522.h ${RFID_DIR}/MFRC522.cpp)
 
 set(RFID_CLASS_DIR ${CMAKE_SOURCE_DIR}/src/rfid_class)
 set(RFID_CLASS ${RFID_CLASS_DIR}/rfid_class.hpp ${RFID_CLASS_DIR}/rfid_class.cpp)
 
-set(SENSOR_INTERFACE_DIR ${CMAKE_SOURCE_DIR}/sensor_interface)
+set(SENSOR_INTERFACE_DIR ${SHARED_MODULES_DIR}/sensor_interface)
 set(SENSOR_INTERFACE ${SENSOR_INTERFACE_DIR}/sensor_interface.hpp)
 
-add_executable(${CMAKE_PROJECT_NAME} ${RFID_MQTT} ${RFID} ${SENSOR_INTERFACE} ${RFID_CLASS})
+set(BUZZER_DIR ${CMAKE_SOURCE_DIR}/src/buzzer)
+set(BUZZER ${BUZZER_DIR}/buzzer.h ${BUZZER_DIR}/buzzer.cpp)
 
-target_link_libraries(${CMAKE_PROJECT_NAME} bcm2835)
+add_executable(${CMAKE_PROJECT_NAME} ${RFID_MQTT} ${RFID} ${SENSOR_INTERFACE} ${RFID_CLASS} ${BUZZER})
+
+target_link_libraries(${CMAKE_PROJECT_NAME} bcm2835 wiringPi)

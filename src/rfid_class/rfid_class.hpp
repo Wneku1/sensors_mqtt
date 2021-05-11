@@ -1,5 +1,5 @@
 #pragma once
-#include "../../sensor_interface/sensor_interface.hpp"
+#include "../../shared_module/sensor_interface/sensor_interface.hpp"
 #include "../../lib/RFID/MFRC522.h"
 
 class RFID : public Sensor

@@ -15,7 +15,8 @@ void delay(int ms)
 #endif
 }
 
-RFID::RFID(uint16_t serial_number) : Sensor(serial_number)
+RFID::RFID(uint16_t serial_number, string server_adress, string topic, string client_ID, uint8_t QoS) : Sensor(serial_number),
+	MQTT(server_adress, topic, client_ID, QoS)
 {
 	mfrc.PCD_Init();
 }
@@ -23,6 +24,7 @@ RFID::RFID(uint16_t serial_number) : Sensor(serial_number)
 void RFID::setup()
 {
 	mfrc.PCD_Init();
+	initClientServerConnection();
 }
 
 void RFID::printInfo()

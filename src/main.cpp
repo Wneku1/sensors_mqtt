@@ -1,14 +1,14 @@
-#include "rfid_class/rfid_class.hpp"
+#include "rfid_class.hpp"
 #ifndef _WIN32
 #include <wiringPi.h>
 #endif
 
 #define BUZZERPIN 0
 
-static RFID rfidReader(1);
+static RFID rfidReader(1, "tcp://192.168.0.39:1235", "alert", "Karta", 1);
 
 int main()
-{
+{	
 	if(wiringPiSetup() == -1)
 	{
 		printf("\033[1;31m");
@@ -16,15 +16,11 @@ int main()
 		return 1;
 	}
 
-	pinMode(BUZZERPIN, OUTPUT);
+	rfidReader.initClientServerConnection();
 
 	while(1)
 	{
 		rfidReader.waitForCard();
-		digitalWrite(BUZZERPIN, HIGH);
-		delay(100);
-		digitalWrite(BUZZERPIN, LOW);
-		delay(100);
 	}
 	return 0;
 }

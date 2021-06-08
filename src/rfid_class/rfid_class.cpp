@@ -38,26 +38,26 @@ void RFID::printInfo()
 		if(mfrc.uid.uidByte[i] < 0x10)
 		{
 			printf(" 0");
-			printf("%X",mfrc.uid.uidByte[i]);
+			printf("%X", mfrc.uid.uidByte[i]);
 		}
 		else
 		{
 			printf(" ");
 			printf("%X", mfrc.uid.uidByte[i]);
 		}
-
 	}
 	printf("\n");
 }
 
 
-void RFID::waitForCard()
+bool RFID::isCardAvaiable()
 {
 	// Look for a card
 	if(!mfrc.PICC_IsNewCardPresent())
-		return;
+		return false;
 
 	printInfo();
 
 	delay(1000);
+	return true;
 }
